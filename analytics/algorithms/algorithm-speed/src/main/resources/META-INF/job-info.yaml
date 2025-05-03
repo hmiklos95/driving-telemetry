@@ -1,0 +1,3 @@
+job-name: "DriverSpeedCalculation"
+main-class: "com.example.jobs.DriverSpeedJob"
+depends-on: []
