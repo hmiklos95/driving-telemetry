@@ -6,9 +6,14 @@
     <artifactId>driving-telemetry</artifactId>
     <version>1.0.0</version>
     <modules>
-        <module>consumer-app</module>
-        <module>producer-app</module>
-        <module>analyze-app</module>
+        <module>telemetry</module>
+        <module>telemetry/producer-app</module>
+        <module>telemetry/consumer-app</module>
+        <module>analytics</module>
+        <module>analytics/algorithms</module>
+        <module>analytics/algorithms/algorithm-base</module>
+        <module>analytics/algorithms/algorithm-speed</module>
+        <module>analytics/analyze-app</module>
     </modules>
     <packaging>pom</packaging>
 </project>

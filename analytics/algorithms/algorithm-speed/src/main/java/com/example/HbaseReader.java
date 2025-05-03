@@ -1,4 +1,4 @@
-package com.example.analyze;
+package com.example;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
