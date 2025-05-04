@@ -1,6 +1,7 @@
 package com.example.analyze;
 
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Getter
 @Component
 public class JobRegistry {
 
@@ -23,7 +25,7 @@ public class JobRegistry {
 
     @Autowired
     public JobRegistry(
-            @Value("jobs.folder") String jobFolder
+            @Value("${jobs.folder}") String jobFolder
     ) {
         Path jobsFolder = Paths.get(jobFolder);
         try (Stream<Path> paths = Files.walk(jobsFolder)) {
