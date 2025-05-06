@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 @Component
 public class JobRegistry {
 
-    private List<JobMetaData> jobMetaDataList;
+    private Map<String, JobMetaData> jobMetaDataList;
 
     @Autowired
     public JobRegistry(
@@ -31,8 +31,7 @@ public class JobRegistry {
         try (Stream<Path> paths = Files.walk(jobsFolder)) {
             jobMetaDataList = paths.filter(Files::isRegularFile)
                     .filter(path -> path.toString().endsWith(".jar"))
-                    .map(this::loadJobMetadataFromJar)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toMap(path -> path.getFileName().toString(), this::loadJobMetadataFromJar));
 
             int a = 10;
         } catch (IOException e) {
