@@ -15,15 +15,21 @@ import scala.Tuple2;
 
 public class DriverSpeedJob {
     public static void main(String[] args) {
+        System.out.println("Running job with arguments: " + args[0] + args[1]+ args[2]);
 
-        SparkConf spark = new SparkConf().setMaster("local[*]").setAppName("JD Word Counter");
+        SparkConf spark = new SparkConf().setAppName("JD Word Counter");
 
         JavaSparkContext jsc = new JavaSparkContext(spark);
 
         Configuration config = HBaseConfiguration.create();
-        config.set("hbase.zookeeper.quorum", "localhost");
-        config.set("hbase.zookeeper.property.clientPort", "2181");
-        config.set("zookeeper.znode.parent", "/hbase");
+        //config.set("hbase.zookeeper.quorum", "localhost");
+        //config.set("hbase.zookeeper.property.clientPort", "2181");
+        //config.set("zookeeper.znode.parent", "/hbase");
+
+        config.set("hbase.zookeeper.quorum", args[0]);
+        config.set("hbase.zookeeper.property.clientPort", args[1]);
+        config.set("zookeeper.znode.parent", args[2]);
+
         config.set(TableInputFormat.INPUT_TABLE, "telemetry_data");
 
         Scan scan = new Scan();

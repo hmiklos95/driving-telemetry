@@ -18,6 +18,7 @@ public class Submitter {
 
     private final JobRegistry jobRegistry;
     private final KubernetesClient client;
+    private final HbaseProperties hbaseProperties;
 
     @PostConstruct
     public void init() {
@@ -41,12 +42,20 @@ public class Submitter {
         spec.put("imagePullPolicy", "IfNotPresent");
         spec.put("mainClass", entry.getValue().mainClass);
         spec.put("mainApplicationFile", "local:///mnt/jars/" + entry.getKey());
+        spec.put(
+                "arguments",
+                List.of(
+                        hbaseProperties.getZookeeperQuorum(),
+                        hbaseProperties.getZookeeperClientPort(),
+                        hbaseProperties.getZnodeParent()
+                )
+        );
         spec.put("sparkVersion", "3.5.5");
 
         Map<String, Object> volume = Map.of(
                 "name", "job-jars",
-                "hostPath", Map.of( // vagy pvc / configMap, stb.
-                        "path", "/mnt/driving-telemetry/analytics/algorithms/algorithm-dummy/target/", // available on host
+                "hostPath", Map.of(
+                        "path", "/mnt/jars", // available on host
                         "type", "Directory"
                 )
         );
@@ -82,6 +91,12 @@ public class Submitter {
         executor.put("labels", executorLabels);
 
         spec.put("executor", executor);
+
+        Map<String, String> sparkConf = new HashMap<>();
+        sparkConf.put("spark.driver.extraJavaOptions", "--add-exports java.base/sun.nio.ch=ALL-UNNAMED");
+        sparkConf.put("spark.executor.extraJavaOptions", "--add-exports java.base/sun.nio.ch=ALL-UNNAMED");
+
+        spec.put("sparkConf", sparkConf);
 
         sparkApp.put("spec", spec);
 

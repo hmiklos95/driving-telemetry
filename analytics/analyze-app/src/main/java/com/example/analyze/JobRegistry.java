@@ -32,8 +32,6 @@ public class JobRegistry {
             jobMetaDataList = paths.filter(Files::isRegularFile)
                     .filter(path -> path.toString().endsWith(".jar"))
                     .collect(Collectors.toMap(path -> path.getFileName().toString(), this::loadJobMetadataFromJar));
-
-            int a = 10;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

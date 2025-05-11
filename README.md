@@ -18,3 +18,7 @@ This project consists of a Kafka producer generating random telemetry data and a
 
 spark app
 --add-exports java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED
+
+minikube mount ..Developer/driving-telemetry:/mnt/driving-telemetry
+
+--add-exports java.base/sun.nio.ch=ALL-UNNAMED
