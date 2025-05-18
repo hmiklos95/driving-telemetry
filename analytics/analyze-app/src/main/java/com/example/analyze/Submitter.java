@@ -20,8 +20,7 @@ public class Submitter {
     private final KubernetesClient client;
     private final HbaseProperties hbaseProperties;
 
-    @PostConstruct
-    public void init() {
+    public void submit() {
         extracted(jobRegistry.getJobMetaDataList().entrySet().stream().findFirst().get());
     }
 

@@ -16,9 +16,25 @@ This project consists of a Kafka producer generating random telemetry data and a
 
 3. Build and run both producer and consumer apps via Maven or your IDE.
 
-spark app
---add-exports java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED
+## docker folder
+docker build . -t hbase-local:latest
+minikube image load hbase-local:latest
 
-minikube mount ..Developer/driving-telemetry:/mnt/driving-telemetry
+minikube image load spring-app:latest
 
---add-exports java.base/sun.nio.ch=ALL-UNNAMED
+kafka kafka-topics --create \
+--topic telemetry \
+--bootstrap-server localhost:9092 \
+--partitions 1 \
+--replication-factor 1 \
+--if-not-exists
+
+
+hbase shell
+create 'telemetry_data', 'data'
+
+minikube mount Developer/driving-telemetry/analytics/algorithms/algorithm-speed/target/:/mnt/jars
+
+kubectl delete sparkapp driver-speed
+
+kubectl exec --stdin --tty zookeeper-5c4c8cdd5f-gs6fd -- /bin/bash
