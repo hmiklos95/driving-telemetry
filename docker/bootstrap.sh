@@ -17,6 +17,3 @@ docker exec -it hbase bash -c "echo \"create 'telemetry_data', 'data'\" | hbase 
 echo "Bootstrap finished."
 
 
-put 'telemetry_data', 'driver-0_1745503413292', 'data:speed', 123.45
-put 'telemetry_data', 'driver-0_1745503413292', 'data:acceleration', 9.81
-flush 'telemetry_data'

@@ -33,8 +33,17 @@ kafka kafka-topics --create \
 hbase shell
 create 'telemetry_data', 'data'
 
+put 'telemetry_data', 'driver-0_1745503413292', 'data:speed', 123.45
+put 'telemetry_data', 'driver-0_1745503413292', 'data:acceleration', 9.81
+flush 'telemetry_data'
+
 minikube mount Developer/driving-telemetry/analytics/algorithms/algorithm-speed/target/:/mnt/jars
 
 kubectl delete sparkapp driver-speed
 
 kubectl exec --stdin --tty zookeeper-5c4c8cdd5f-gs6fd -- /bin/bash
+
+mvn clean install spring-boot:repackage
+docker build --build-arg JAR_FILE=telemetry/consumer-app/target/consumer-app-1.0.0.jar . -t consumer-app2
+
+minikube image load [app-name image]
