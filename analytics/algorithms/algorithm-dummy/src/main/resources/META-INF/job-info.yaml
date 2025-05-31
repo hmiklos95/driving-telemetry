@@ -1,0 +1,3 @@
+jobName: "dummy-calculation"
+mainClass: "com.example.dummyapp.DummyJob"
+dependsOn: []

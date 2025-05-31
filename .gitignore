@@ -199,3 +199,7 @@ README.html
 *.iml
 .idea
 .exercism
+
+
+*local.properties
+*local.yaml

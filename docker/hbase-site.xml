@@ -14,12 +14,7 @@
 
     <property>
         <name>hbase.regionserver.hostname</name>
-        <value>localhost</value>
-    </property>
-
-    <property>
-        <name>hbase.regionserver.hostname.useFQDN</name>
-        <value>false</value>
+        <value>hbase</value>
     </property>
 
     <property>

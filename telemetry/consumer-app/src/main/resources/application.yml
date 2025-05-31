@@ -1,0 +1,12 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: telemetry-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+hbase:
+  zookeeper-quorum: zookeeper
+  zookeeper-client-port: 2181
+  znode-parent: /hbase
