@@ -29,7 +29,7 @@ kafka kafka-topics --create \
 --replication-factor 1 \
 --if-not-exists
 
-
+kubectl exec --stdin --tty [hbase pod name] -- /bin/bash 
 hbase shell
 create 'telemetry_data', 'data'
 

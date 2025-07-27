@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analyze-app
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: analyze-app
+  template:
+    metadata:
+      labels:
+        app: analyze-app
+    spec:
+      containers:
+        - name: analyze-app
+          image: analyze-app4:latest
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: analyze-app-config
+          ports:
+            - containerPort: 8080

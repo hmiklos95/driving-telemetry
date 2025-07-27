@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  HBASE_ZNODE_PARENT: /hbase
+  HBASE_ZOOKEEPER_CLIENT_PORT: "2181"
+  HBASE_ZOOKEEPER_QUORU: zookeeper
+  JOBS_FOLDER: /mnt/jars
+kind: ConfigMap
+metadata:
+  name: analyze-app-config
